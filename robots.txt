@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abdelmlkabod10-cpu.github.io/Aboutdev/sitemap.xml
