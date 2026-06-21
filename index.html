@@ -2,9 +2,53 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حروب العصور الوسطى - Medieval Wars</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <!-- SEO والبحث -->
+    <title>حروب العصور الوسطى - لعبة ويب مجانية | Medieval Wars Game</title>
+    <meta name="description" content="لعبة حروب العصور الوسطى السينمائية - لعبة ويب مجانية تفاعلية على المتصفح. العب الآن على الهاتف والكمبيوتر بدون تحميل!">
+    <meta name="keywords" content="لعبة، عبة ويب، حروب، العصور الوسطى، سينمائية، مجانية، بدون تحميل، ألعاب، أكشن">
+    <meta name="author" content="GitHub Copilot">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <!-- Open Graph للمشاركة على وسائل التواصل -->
+    <meta property="og:title" content="حروب العصور الوسطى - لعبة ويب مجانية">
+    <meta property="og:description" content="لعبة حروب عصور وسطى سينمائية احترافية - العب الآن على أي جهاز">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://abdelmlkabod10-cpu.github.io/Aboutdev/">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect fill='%231a1a2e' width='1200' height='630'/%3E%3Ctext x='50%25' y='50%25' font-size='72' font-weight='bold' text-anchor='middle' dy='.3em' fill='%23ff6400' font-family='Arial'%3Eحروب العصور الوسطى%3C/text%3E%3Ctext x='50%25' y='65%25' font-size='48' text-anchor='middle' dy='.3em' fill='%23ffd700' font-family='Arial'%3EMedieval Cinematic Wars%3C/text%3E%3C/svg%3E">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="حروب العصور الوسطى - لعبة ويب">
+    <meta name="twitter:description" content="لعبة مجانية سينمائية - العب على الهاتف والكمبيوتر">
+    
+    <!-- Apple -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="حروب العصور الوسطى">
+    
+    <!-- Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <link rel="canonical" href="https://abdelmlkabod10-cpu.github.io/Aboutdev/">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='70' font-size='80' text-anchor='middle'%3E⚔️%3C/text%3E%3C/svg%3E">
+    
     <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        
+        body {
+            -webkit-user-scalable: no;
+            user-scalable: no;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
     <div class="game-container">
@@ -18,6 +62,7 @@
                     <button class="btn btn-large" onclick="showInstructions()">التعليمات</button>
                     <button class="btn btn-large" onclick="showCredits()">الإحصائيات</button>
                 </div>
+                <p class="footer-text">🎮 لعبة مجانية - تعمل على جميع الأجهزة</p>
             </div>
         </div>
 
@@ -32,7 +77,12 @@
                         <li>اضغط <strong>SPACE</strong> للهجوم</li>
                         <li>اجمع الأسلحة والدروع لتقوية جيشك</li>
                         <li>اهزم الأعداء واصل إلى المستويات التالية</li>
-                        <li>احذر من السقوط والحفر!</li>
+                        <li>احذر من سقوط صحتك إلى الصفر!</li>
+                    </ul>
+                    <p style="margin-top: 20px;">📱 <strong>على الهاتف:</strong></p>
+                    <ul>
+                        <li>استخدم <strong>أزرار الحركة</strong> على اليسار</li>
+                        <li>اضغط <strong>زر الهجوم الأحمر</strong> على اليمين</li>
                     </ul>
                 </div>
                 <button class="btn" onclick="backToMenu()">عودة</button>
@@ -107,7 +157,7 @@
                     <button class="d-btn down" data-direction="down">▼</button>
                     <button class="d-btn right" data-direction="right">▶</button>
                 </div>
-                <button class="action-btn" id="attackBtn">⚔️ هاجم</button>
+                <button class="action-btn" id="attackBtn">⚔️</button>
             </div>
 
             <!-- قائمة الإيقاف المؤقت -->
@@ -141,5 +191,11 @@
     </div>
 
     <script src="game.js"></script>
+    <script>
+        // تسجيل service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
+        }
+    </script>
 </body>
 </html>
