@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حروب العصور الوسطى - Medieval Wars</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- القائمة الرئيسية -->
+        <div id="mainMenu" class="menu active">
+            <div class="menu-content">
+                <h1 class="game-title">⚔️ حروب العصور الوسطى ⚔️</h1>
+                <p class="subtitle">Medieval Cinematic Wars</p>
+                <div class="menu-buttons">
+                    <button class="btn btn-large" onclick="startGame()">ابدأ اللعبة</button>
+                    <button class="btn btn-large" onclick="showInstructions()">التعليمات</button>
+                    <button class="btn btn-large" onclick="showCredits()">الإحصائيات</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- شاشة التعليمات -->
+        <div id="instructionsMenu" class="menu">
+            <div class="menu-content">
+                <h2>التعليمات</h2>
+                <div class="instructions-text">
+                    <p>🎮 <strong>كيفية اللعب:</strong></p>
+                    <ul>
+                        <li>استخدم <strong>مفاتيح الأسهم</strong> أو <strong>WASD</strong> للحركة</li>
+                        <li>اضغط <strong>SPACE</strong> للهجوم</li>
+                        <li>اجمع الأسلحة والدروع لتقوية جيشك</li>
+                        <li>اهزم الأعداء واصل إلى المستويات التالية</li>
+                        <li>احذر من السقوط والحفر!</li>
+                    </ul>
+                </div>
+                <button class="btn" onclick="backToMenu()">عودة</button>
+            </div>
+        </div>
+
+        <!-- شاشة الإحصائيات -->
+        <div id="creditsMenu" class="menu">
+            <div class="menu-content">
+                <h2>إحصائياتك</h2>
+                <div class="stats-content">
+                    <p>🏆 <strong>أعلى النقاط:</strong> <span id="highScore">0</span></p>
+                    <p>⚔️ <strong>الأعداء المهزومين:</strong> <span id="enemiesDefeated">0</span></p>
+                    <p>🎯 <strong>المستويات المكتملة:</strong> <span id="levelsCompleted">0</span></p>
+                    <p>⏱️ <strong>وقت اللعب الإجمالي:</strong> <span id="totalPlayTime">0</span> دقيقة</p>
+                </div>
+                <button class="btn" onclick="resetStats()">إعادة تعيين الإحصائيات</button>
+                <button class="btn" onclick="backToMenu()">عودة</button>
+            </div>
+        </div>
+
+        <!-- منطقة اللعبة الرئيسية -->
+        <div id="gameArea" class="game-area">
+            <!-- الكاميرا والخلفية -->
+            <div id="gameScene" class="game-scene">
+                <!-- السماء -->
+                <div class="sky"></div>
+                
+                <!-- الأرض -->
+                <div id="ground" class="ground"></div>
+
+                <!-- اللاعب -->
+                <div id="player" class="player">
+                    <div class="player-body">
+                        <div class="player-head"></div>
+                        <div class="player-torso"></div>
+                    </div>
+                </div>
+
+                <!-- الأعداء -->
+                <div id="enemies" class="enemies-container"></div>
+
+                <!-- العناصر -->
+                <div id="items" class="items-container"></div>
+
+                <!-- المشاريع/الأسهم -->
+                <div id="projectiles" class="projectiles-container"></div>
+
+                <!-- الجسيمات -->
+                <div id="particles" class="particles-container"></div>
+            </div>
+
+            <!-- واجهة اللعبة العلوية -->
+            <div class="game-hud">
+                <div class="hud-left">
+                    <div class="hud-stat">❤️ صحة: <span id="playerHealth">100</span>/100</div>
+                    <div class="hud-stat">🛡️ الدروع: <span id="playerArmor">0</span></div>
+                </div>
+                <div class="hud-center">
+                    <div class="hud-stat">📍 المستوى: <span id="currentLevel">1</span></div>
+                </div>
+                <div class="hud-right">
+                    <div class="hud-stat">⭐ النقاط: <span id="score">0</span></div>
+                </div>
+            </div>
+
+            <!-- أزرار التحكم على الهاتف -->
+            <div class="mobile-controls">
+                <div class="dpad">
+                    <button class="d-btn up" data-direction="up">▲</button>
+                    <button class="d-btn left" data-direction="left">◀</button>
+                    <button class="d-btn down" data-direction="down">▼</button>
+                    <button class="d-btn right" data-direction="right">▶</button>
+                </div>
+                <button class="action-btn" id="attackBtn">⚔️ هاجم</button>
+            </div>
+
+            <!-- قائمة الإيقاف المؤقت -->
+            <div id="pauseMenu" class="menu">
+                <div class="menu-content">
+                    <h2>اللعبة موقوفة</h2>
+                    <div class="menu-buttons">
+                        <button class="btn" onclick="resumeGame()">استأنف اللعبة</button>
+                        <button class="btn" onclick="restartGame()">ابدأ من جديد</button>
+                        <button class="btn" onclick="backToMenu()">العودة للقائمة الرئيسية</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شاشة نهاية اللعبة -->
+            <div id="gameOverMenu" class="menu">
+                <div class="menu-content">
+                    <h2 id="gameOverTitle">انتهت اللعبة!</h2>
+                    <div class="game-over-stats">
+                        <p>النقاط النهائية: <span id="finalScore">0</span></p>
+                        <p>الأعداء المهزومين: <span id="finalEnemies">0</span></p>
+                        <p>المستوى المكتمل: <span id="finalLevel">1</span></p>
+                    </div>
+                    <div class="menu-buttons">
+                        <button class="btn" onclick="restartGame()">لعب مجدداً</button>
+                        <button class="btn" onclick="backToMenu()">القائمة الرئيسية</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
